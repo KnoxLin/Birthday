@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Un Vaai than unaku prechana</title>
+  <style>
+    /* Ensure full screen and no scroll */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    /* Background slider container */
+    .background-slider {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+    /* Each slide covers the viewport */
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: top center;
+      opacity: 0;
+    }
+    /* Keyframes for slides 1-4 and slide 5 using a 20% fade in and fade out period */
+    @keyframes seriesAnimation {
+      0% { opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    /* Slides 1-4: 7s duration each */
+    .slide1 { 
+      background-image: url('https://i.pinimg.com/originals/c2/39/78/c239781a884d363b6ee17280606b671f.gif');
+      animation: seriesAnimation 7s forwards;
+      animation-delay: 0s;
+    }
+    .slide2 { 
+      background-image: url('https://i.pinimg.com/originals/58/a1/1e/58a11e0d81a2d112d36590114ce86e02.gif');
+      animation: seriesAnimation 7s forwards;
+      animation-delay: 7s;
+    }
+    .slide3 { 
+      background-image: url('https://i.pinimg.com/originals/e5/0a/a1/e50aa1bcb53f8082844b20ae8c65993b.gif');
+      animation: seriesAnimation 7s forwards;
+      animation-delay: 14s;
+    }
+    .slide4 { 
+      background-image: url('https://i.pinimg.com/originals/bd/21/1e/bd211e37a171777d539455f4b46488c7.gif');
+      animation: seriesAnimation 7s forwards;
+      animation-delay: 21s;
+    }
+    /* Slide 5: lasts 12s with same fade proportions */
+    .slide5 { 
+      background-image: url('https://i.pinimg.com/originals/0c/a9/0f/0ca90ff207e9c87662f4e8fc0459f441.gif');
+      animation: seriesAnimation 12s forwards;
+      animation-delay: 28s;
+    }
+    /* Final slide: fade in slowly over 10s */
+    @keyframes finalSlideAnimation {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    .slide6 {
+      background-image: url('https://i.pinimg.com/originals/57/b9/e5/57b9e5526b70cecc4558a284330e0c1d.gif');
+      animation: finalSlideAnimation 10s forwards;
+      animation-delay: 40s;
+      background-size: cover;
+      background-position: top center;
+    }
+    
+    /* Text overlay container (centered vertically) */
+    .text-container {
+      position: fixed;
+      top: 50%;
+      width: 100%;
+      text-align: center;
+      transform: translateY(-50%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .text-slide {
+      position: absolute;
+      width: 100%;
+      font-size: 2em;
+      font-weight: bold;
+      padding: 20px;
+      opacity: 0;
+    }
+    /* Keyframes for text slides matching the slide timings */
+    @keyframes textAnimation {
+      0% { opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    /* Final text: Now just fades in, no zoom */
+    @keyframes finalTextAnimation {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    /* Text for each slide with contrasting colours */
+    .text1 {
+      color: #ffffff;
+      animation: textAnimation 7s forwards;
+      animation-delay: 0s;
+    }
+    .text2 {
+      color: #ffeb3b;
+      animation: textAnimation 7s forwards;
+      animation-delay: 7s;
+    }
+    .text3 {
+      color: #4caf50;
+      animation: textAnimation 7s forwards;
+      animation-delay: 14s;
+    }
+    .text4 {
+      color: #e91e63;
+      animation: textAnimation 7s forwards;
+      animation-delay: 21s;
+    }
+    .text5 {
+      color: #03a9f4;
+      animation: textAnimation 12s forwards;
+      animation-delay: 28s;
+    }
+    .text6 {
+      color: #ffffff;
+      animation: finalTextAnimation 10s forwards;
+      animation-delay: 40s;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    }
+  </style>
+</head>
+<body>
+  <!-- Background slider container -->
+  <div class="background-slider">
+    <div class="slide slide1"></div>
+    <div class="slide slide2"></div>
+    <div class="slide slide3"></div>
+    <div class="slide slide4"></div>
+    <div class="slide slide5"></div>
+    <div class="slide slide6"></div>
+  </div>
+  
+  <!-- Text overlays container -->
+  <div class="text-container">
+    <div class="text-slide text1">Take the first steps toward the path you want to follow</div>
+    <div class="text-slide text2">"You'll Be blessed with Good friends"</div>
+    <div class="text-slide text3">You'll Get through everything with ease</div>
+    <div class="text-slide text4">You'll meet the love of your lifee</div>
+    <div class="text-slide text5">Twenty years from now you will be more disappointed by the things that you didn't do than by the ones you did do. So throw off the bowlines. Sail away from the safe harbor. Catch the trade winds in your sails. Explore. Dream. Discover</div>
+    <div class="text-slide text6">Happy Birthday Nanthana ✨, You'll always be ma favourite Bitch 💕✨</div>
+  </div>
+</body>
+</html>

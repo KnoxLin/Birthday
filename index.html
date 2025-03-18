@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main Page with Overlays</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Import fonts if needed -->
+  <link href="https://fonts.googleapis.com/css2?family=Jasmitha+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Spicy+Rice&display=swap" rel="stylesheet">
+  <style>
+    /* Overlay container styling */
+    .overlay-container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: white;
+      padding-top: 60px;
+    }
+    .overlay-heading {
+      font-size: 2em;
+      margin-bottom: 40px;
+      font-family: 'Jasmitha Script', cursive;
+    }
+    .split-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 60px;
+    }
+    .overlay-item {
+      text-align: center;
+    }
+    .overlay-box {
+      width: 200px;
+      height: 200px;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    .overlay-caption-left {
+      font-size: 1.1em;
+      font-family: 'Satisfy', cursive;
+    }
+    .overlay-caption-right {
+      font-size: 1.1em;
+      font-family: 'Spicy Rice', cursive;
+    }
+  </style>
+</head>
+<body>
+  <!-- Starry background (from your existing styles.css and scripts.js) -->
+  <div id="night-sky" style="--number-of-stars: 20"></div>
+  
+  <!-- Overlay Content -->
+  <div class="overlay-container">
+    <h1 class="overlay-heading">Happy Birthday To My Best Bitch &lt;3</h1>
+    <div class="split-container">
+      <!-- Left Overlay: Sky Of Letters -->
+      <div class="overlay-item">
+        <a href="skyletters.html" target="_blank" class="overlay-link">
+          <div class="overlay-box" style="background-image: url('https://i.pinimg.com/736x/64/18/ed/6418eda2d2fff9e36ef561b7647d2dec.jpg');"></div>
+        </a>
+        <div class="overlay-caption-left">Sky Of Letters</div>
+      </div>
+      <!-- Right Overlay: Updated "Un Vaai than unaku prechana" -->
+      <div class="overlay-item">
+        <a href="prechana.html" target="_blank" class="overlay-link">
+          <div class="overlay-box" style="background-image: url('https://i.pinimg.com/736x/62/36/d8/6236d86591a1c42acb16adee3df71790.jpg');"></div>
+        </a>
+        <div class="overlay-caption-right">Tang's World</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Include your star animation script -->
+  <script src="scripts.js"></script>
+</body>
+</html>

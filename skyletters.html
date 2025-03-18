@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sky of Letters</title>
+  <link rel="shortcut icon" href="../assets/Sirius-1.jpg" type="image/x-icon">
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Import fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Jasmitha+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap" rel="stylesheet">
+
+  <style>
+    /********************************************
+     * OVERRIDES for easier-to-catch stars on this page:
+     * - Always visible (no fade in/out).
+     * - No random delay.
+     * - Slower falling speed: add an extra 1.5s to each star’s duration.
+     ********************************************/
+    .star {
+      animation-name: slow-shooting-star !important;
+      animation-duration: calc(var(--duration) + 1.5s) !important;
+      animation-delay: 0s !important;
+      animation-iteration-count: infinite !important;
+      animation-timing-function: ease-in-out !important;
+      position: relative; /* Ensure pseudo-element is positioned relative to star */
+    }
+    @keyframes slow-shooting-star {
+      0% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(-45deg);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(var(--travel), var(--travel)) rotate(-45deg);
+      }
+    }
+
+    /* Increase the clickable area of each star */
+    .star::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: transparent;
+      /* Allow this pseudo-element to capture clicks so they bubble up to .star */
+      pointer-events: auto;
+    }
+
+    /* Container above star background */
+    .overlay-container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: white;
+      padding-top: 40px;
+      opacity: 1;
+    }
+    .overlay-heading {
+      font-size: 1.8em;
+      margin-bottom: 30px;
+      font-family: 'Jasmitha Script', cursive;
+    }
+
+    /* Fade-out animation for the overlay container */
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+    .fade-out {
+      animation: fadeOut 2s forwards;
+    }
+
+    /* Floating message bubble for clicks 1-9 */
+    .message {
+      position: fixed;
+      color: white;
+      font-size: 1.1em;
+      text-align: center;
+      pointer-events: none;
+      animation: floatMessage 4s forwards;
+    }
+    @keyframes floatMessage {
+      0%   { opacity: 0; transform: translateY(0); }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; transform: translateY(-50px); }
+      100% { opacity: 0; transform: translateY(-80px); }
+    }
+
+    /* Special final message (10th star) with slow fade-in */
+    .final-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Lily Script One', cursive;
+      font-size: 2em;
+      color: white;
+      text-align: center;
+      z-index: 999;
+      opacity: 0;
+      animation: fadeInFinal 3s forwards;
+    }
+    @keyframes fadeInFinal {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Starry background (generated via your scripts.js and styles.css) -->
+  <div id="night-sky" style="--number-of-stars: 20"></div>
+
+  <div class="overlay-container" id="overlayContainer">
+    <h1 class="overlay-heading">Catch the falling stars to read what's on their mind</h1>
+  </div>
+
+  <!-- Include your existing star creation JS -->
+  <script src="scripts.js"></script>
+
+  <script>
+    /************************************************
+     * 1) Define the messages for each star click.
+     ************************************************/
+    const messages = [
+      "You are Ma diamond hoe <3",
+      "If you fall, I’ll be there. I’m just going to make sure you don’t get up.",
+      "Did u know ? I love talking wtih you ",
+      "You're the one person i'll really miss if we stopped talking",
+      "Even tho ur a bitch , you're a nice bitch",
+      "Sometimes you're an angry bird . Actually 'sometimes' is an exaggeration . Be happy im not using the word 'always' ",
+      "Don't be stresseddd , Be chillll . Don't be a tomato , be a watermelonn",
+      "Always sleep early . Always Eat healthyyy , Be healthyyyy  ",
+      "Be Happy Bitchh , TODAY'S YOUR BIRTHDAY  ✨"
+    ];
+    const finalMessageText = "HAPPY BIRTHDAY DIAMOND HOOEEE ✨ <br/> LOVE YOU BITCH";
+
+    let clickCount = 0;
+    let allStars = [];
+
+    /************************************************
+     * 2) Once the stars are created (via scripts.js),
+     *    attach click handlers to each star.
+     ************************************************/
+    window.addEventListener('load', () => {
+      allStars = document.querySelectorAll('.star');
+      allStars.forEach(star => {
+        star.addEventListener('click', starClickHandler);
+      });
+    });
+
+    /************************************************
+     * 3) Click handler for each star.
+     *    Each star is only clickable once.
+     ************************************************/
+    function starClickHandler(e) {
+      const star = e.currentTarget;
+      // Prevent duplicate clicks on the same star.
+      if (star.getAttribute('data-clicked') === 'true') return;
+      star.setAttribute('data-clicked', 'true');
+
+      if (clickCount >= 10) return; // Limit to 10 clicks total
+      clickCount++;
+
+      if (clickCount <= 9) {
+        const msg = messages[clickCount - 1];
+        showFloatingMessage(e.clientX, e.clientY, msg);
+      }
+      if (clickCount === 10) {
+        // Fade out the overlay heading
+        document.getElementById('overlayContainer').classList.add('fade-out');
+        showFinalMessage();
+        // Remove click handlers from all stars.
+        allStars.forEach(s => {
+          s.removeEventListener('click', starClickHandler);
+        });
+      }
+    }
+
+    /************************************************
+     * 4) Show a small floating message at the click.
+     ************************************************/
+    function showFloatingMessage(x, y, text) {
+      const messageEl = document.createElement('div');
+      messageEl.className = 'message';
+      messageEl.innerText = text;
+      messageEl.style.left = x + 'px';
+      messageEl.style.top = (y - 20) + 'px';
+      document.body.appendChild(messageEl);
+      setTimeout(() => {
+        if (messageEl.parentNode) {
+          messageEl.parentNode.removeChild(messageEl);
+        }
+      }, 4000);
+    }
+
+    /************************************************
+     * 5) Show the final big message in the center.
+     ************************************************/
+    function showFinalMessage() {
+      const finalEl = document.createElement('div');
+      finalEl.className = 'final-message';
+      finalEl.innerHTML = finalMessageText;
+      document.body.appendChild(finalEl);
+    }
+  </script>
+</body>
+</html>
